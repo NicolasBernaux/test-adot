@@ -1,19 +1,19 @@
-const TestGeocode = function(event, result ,index = 0) {
-  if (RegExp(`${result[index].lat}[0-9]+`).test(event.lat)) { // test lat
+const TestGeocode = function(event, json ,index = 0) {
+  if (RegExp(`${json[index].lat}[0-9]+`).test(event.lat)) { // test lat
 
-    if (RegExp(`${result[index].lon}[0-9]+`).test(event.lon)) { // test lon
+    if (RegExp(`${json[index].lon}[0-9]+`).test(event.lon)) { // test lon
 
       if (event.event_type === 'click') // if event is equal to click
 
-        result[index].clicks = result[index].clicks + 1 || 1;
+        json[index].clicks = json[index].clicks + 1 || 1;
       else {
-        result[index].impressions = result[index].impressions + 1 || 1;
+        json[index].impressions = json[index].impressions + 1 || 1;
       }
-    } else if (index+1 < result.length ) { // if long is not equal
-      TestGeocode(event, result, index+1);
+    } else if (index+1 < json.length ) { // if long is not equal
+      TestGeocode(event, json, index+1);
     }
-  } else if (index+1 < result.length ) { // if lat is not equal
-    TestGeocode(event, result, index+1); // recursive until find or until index is equal to result
+  } else if (index+1 < json.length ) { // if lat is not equal
+    TestGeocode(event, json, index+1); // recursive until find or until index is equal to result
   }
 };
 
